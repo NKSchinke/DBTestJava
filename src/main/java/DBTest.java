@@ -53,5 +53,5 @@ public class DBTest {
 
         //deletes Rodger Murphy's Staff document
         collection.deleteOne(eq("Name", "Rodger Murphy"));
-    }
-}
+    }//end main
+}//end class
