@@ -33,10 +33,25 @@ public class DBTest {
         MongoDatabase database = mongoClient.getDatabase("School");
         MongoCollection<Document> collection = database.getCollection("Staff");
 
+        //creates new Staff member document & adds to db
         Document doc = new Document("Name", "Rodger Murphy")
                 .append("Position", "Advisor")
                 .append("Office", "PRI136");
 
         collection.insertOne(doc);
+
+        //reads newly added document
+        doc = collection.find(eq("Name", "Rodger Murphy")).first();
+        System.out.println(doc.toJson());
+
+        //changes Rodger Murphy's Office to PRI137 fro PRI136
+        collection.updateOne(eq("Name", "Rodger Murphy"), new Document("$set", new Document("Office", "PRI137")));
+
+        //reads document with updated information
+        doc = collection.find(eq("Name", "Rodger Murphy")).first();
+        System.out.println(doc.toJson());
+
+        //deletes Rodger Murphy's Staff document
+        collection.deleteOne(eq("Name", "Rodger Murphy"));
     }
 }
